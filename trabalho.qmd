@@ -30,18 +30,10 @@ A base foi carregada através do arquivo csv da pasta dados utilizando a funçã
 ```{r}
 # Carregar a base de dados
 dados <- read.csv("dados/dataset.csv")
+```
 
-# Visualizar as primeiras linhas
-#head(dados)
-
-# Ver estrutura da base
-#str(dados)
-
-# Visualizar dados
-#View(dados)
-
-# Ver resumo estatístico
-#summary(dados)
+```{r}
+any(is.na(dados))
 ```
 
 # 5. Instale e carregue os pacotes de R necessários para sua análise (mostre o código necessário):
@@ -110,7 +102,9 @@ Foram utilizados as seguintes funções:
     dados$Satisfaction.Score <- as.factor(round(dados$Satisfaction.Score))
     ```
 
-9.  Além das funções das libs acima foi feito também a criação de duas funções para auxiliar na análise de cada coluna
+9.  Não foi utilizado na.omit() ou na.rm = TRUE pois não foi encontrado dados nullos na base
+
+10. Além das funções das libs acima foi feito também a criação de duas funções para auxiliar na análise de cada coluna
 
     1.  analyze_categorical: Utilizado para fazer a análise das colunas com valores categóricos, esta função imprime o gráfico de barras com a distribuição e frequencia dos valores da coluna analisada.
     2.  plot_analysis: Utilizado para fazer a análise das colunas com valores numéricos, esta função imprime o gráfico de boxplot e o histograma.
@@ -135,10 +129,10 @@ analyze_categorical <- function(column, label){
 plot_analysis <- function(column, columnLabel){
 
   Q0 <- min(column)
-  Q1 <- quantile(column, 0.25)
-  Q2 <- quantile(column, 0.50)
-  Q3 <- quantile(column, 0.75)
-  Q4 <- quantile(column, 1.00)
+  Q1 <- as.numeric(quantile(column, 0.25))
+  Q2 <- as.numeric(quantile(column, 0.50))
+  Q3 <- as.numeric(quantile(column, 0.75))
+  Q4 <- as.numeric(quantile(column, 1.00))
 
   IQR_val <- IQR(column)
   
