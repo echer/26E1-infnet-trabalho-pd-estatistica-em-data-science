@@ -1,0 +1,365 @@
+---
+title: "Trabalho de Estatistica em Data Science - INFNET"
+format: html
+author: "Alan C. Echer"
+editor: visual
+---
+
+# 1. Mostre através de prints que você tem acesso a uma plataforma RStudio (instalado localmente ou nuvem).
+
+Para realizar as análises deste trabalho foi utilizada a plataforma **RStudio**, que é um ambiente de desenvolvimento integrado (IDE) utilizado para programação na linguagem R.
+
+Neste trabalho foi utilizado o **RStudio instalado localmente**.
+
+![](assets/r-studio-local.png)
+
+# 2. Escolha uma base de dados para realizar esse projeto. Essa base de dados será utilizada durante toda sua análise. Essa base necessita ter 4 (ou mais) variáveis de interesse. Caso você tenha dificuldade para escolher uma base, o professor da disciplina irá designar para você.
+
+A base de dados foi obtida através do kaggle (<https://www.kaggle.com/datasets/rajagrawal7089/electronic-store-dataset>) e contém dados gerados relacionados ao comportamento de consumidores em compras para uma loja de eletronicos, a base possui 5000 linhas e 15 colunas com uma mistura de dados numéricos e categóricos.
+
+# 3. Explique qual o motivo para a escolha dessa base e explique os resultados esperados através da análise.
+
+A base foi escolhida pois possui dados de vendas de uma loja de eletronicos, assim podemos analisar os dados e obter informações sobre seus compradores conhecendo melhor os pontos fortes e fracos de venda, podendo assim tomar decisões estratégicas para ajudar no desenvolvimento do negócio.
+
+# 4. Carregue a base para o RStudio e comprove o carregamento tirando um print da tela com a base escolhida presente na área "Ambiente"/Enviroment. Detalhe como você realizou o carregamento dos dados.
+
+A base foi carregada através do arquivo csv da pasta dados utilizando a função read.csv conforme a print abaixo:
+
+![](assets/carregamento-base.png)
+
+```{r}
+# Carregar a base de dados
+dados <- read.csv("dados/dataset.csv")
+
+# Visualizar as primeiras linhas
+#head(dados)
+
+# Ver estrutura da base
+#str(dados)
+
+# Visualizar dados
+#View(dados)
+
+# Ver resumo estatístico
+#summary(dados)
+```
+
+# 5. Instale e carregue os pacotes de R necessários para sua análise (mostre o código necessário):
+
+Aqui realizei o carregamento dos pacotes R necessário para a análise.
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(summarytools)
+```
+
+# 6. Escolha outros pacotes necessários, aponte sua necessidade e instale e carregue (mostrando o código necessário).
+
+# 7. Aplique uma função em R que seja útil para sua análise e mostre.
+
+Foram utilizados as seguintes funções:
+
+1.  min() - Utilizado para encontrar o valor mínimo da coluna
+
+    ```{r}
+    min(dados$Age)
+    ```
+
+2.  quantile() - Utilizado para encontrar os quartis passando por parametro decimal
+
+    ```{r}
+    quantile(dados$Age, 0.25)
+    ```
+
+3.  IQR() - Utilizado para calcular o IQR valor que representa a diferença entre Q3 e Q1
+
+    ```{r}
+    cat("IQR:",IQR(dados$Age),"\n")
+    ```
+
+4.  mean() - Utilizado para encontrar a média da coluna
+
+    ```{r}
+    cat("Média:",mean(dados$Age),"\n")
+    ```
+
+5.  sd() - Utilizado para encontrar o desvio padrão da coluna
+
+    ```{r}
+    cat("Desvio padrão:",sd(dados$Age),"\n")
+    ```
+
+6.  ggplot() - Utilizado para imprimir os dados em gráficos
+
+    ```{r}
+    # O codigo está na Analise final
+    ```
+
+7.  as.factor() - Utilizado para converter os dados numéricos em categóricos
+
+    ```{r}
+    dados$Membership.Status <- as.factor(dados$Membership.Status)
+    dados$Warranty.Extension <- as.factor(dados$Warranty.Extension)
+    ```
+
+8.  round() - Utilizado para arredondar os dados numéricos antes de converter para categóricos
+
+    ```{r}
+    dados$Store.Rating <- as.factor(round(dados$Store.Rating))
+    dados$Satisfaction.Score <- as.factor(round(dados$Satisfaction.Score))
+    ```
+
+9.  Além das funções das libs acima foi feito também a criação de duas funções para auxiliar na análise de cada coluna
+
+    1.  analyze_categorical: Utilizado para fazer a análise das colunas com valores categóricos, esta função imprime o gráfico de barras com a distribuição e frequencia dos valores da coluna analisada.
+    2.  plot_analysis: Utilizado para fazer a análise das colunas com valores numéricos, esta função imprime o gráfico de boxplot e o histograma.
+
+```{r}
+analyze_categorical <- function(column, label){
+
+  print(table(column))
+  print(prop.table(table(column))*100)
+
+  ggplot(data.frame(column), aes(x=column)) +
+    geom_bar(fill="lightblue") +
+    labs(
+      title=paste("Distribuição de", label),
+      x=label,
+      y="Frequência"
+    ) +
+    theme_minimal() |> print()
+
+}
+
+plot_analysis <- function(column, columnLabel){
+
+  Q0 <- min(column)
+  Q1 <- quantile(column, 0.25)
+  Q2 <- quantile(column, 0.50)
+  Q3 <- quantile(column, 0.75)
+  Q4 <- quantile(column, 1.00)
+
+  IQR_val <- IQR(column)
+  
+  mean_val <- mean(column)
+  sd_val <- sd(column)
+  
+  # binwidth automático (Freedman-Diaconis)
+  n <- length(column)
+  binwidth <- 2 * IQR_val / (n^(1/3))
+
+  LI <- Q1 - 1.5 * IQR_val
+  LS <- Q3 + 1.5 * IQR_val
+  
+  cat("Média:",mean_val,"\n")
+  cat("Mediana:",Q2,"\n")
+  cat("Desvio padrão:",sd_val,"\n")
+  cat("Q1:",Q1,"\n")
+  cat("Q3:",Q3,"\n")
+  cat("IQR:",IQR_val,"\n")
+
+  # Boxplot
+  box <- ggplot(data.frame(column), aes(x = "", y = column)) +
+    geom_boxplot(fill = "lightblue") +
+    geom_hline(yintercept = LI, color = "red", linetype = "dashed") +
+    geom_hline(yintercept = LS, color = "blue", linetype = "dashed") +
+    geom_hline(yintercept = Q0, color = "orange", linetype = "dashed") +
+    geom_hline(yintercept = Q4, color = "orange", linetype = "dashed") +
+
+    annotate("text", x = 1.2, y = Q0, label = "(0%)") +
+    annotate("text", x = 1.2, y = Q1, label = paste("Q1 =", Q1)) +
+    annotate("text", x = 1.2, y = Q2, label = paste("Q2 =", Q2)) +
+    annotate("text", x = 1.2, y = Q3, label = paste("Q3 =", Q3)) +
+    annotate("text", x = 1.2, y = Q4, label = "(100%)") +
+
+    annotate("text", x = 1.2, y = LI, label = paste("Limite Inf:", round(LI,2))) +
+    annotate("text", x = 1.2, y = LS, label = paste("Limite Sup:", round(LS,2))) +
+
+    labs(title = paste("Boxplot -", columnLabel),
+         y = columnLabel,
+         x = "")
+
+  # Histograma
+  hist <- ggplot(data.frame(column), aes(x = column)) +
+    geom_histogram(binwidth = binwidth,
+                   aes(y=..density..),
+                   fill = "lightblue",
+                   color = "black") +
+    geom_density(color="darkblue", size=1) +
+    geom_vline(xintercept=mean_val,
+               color="red",
+               linetype="dashed") +
+
+    geom_vline(xintercept=Q2,
+               color="green",
+               linetype="dashed") +
+    labs(title = paste("Histograma -", columnLabel),
+         x = columnLabel,
+         y = "Frequência")
+
+  print(box)
+  print(hist)
+
+}
+```
+
+# 8. Escolha uma variável de seu banco de dados e calcule:
+
+1.  a média para todos os eventos:
+
+    ```{r}
+    cat("Média:",mean(dados$Age),"\n")
+    ```
+
+2.  o desvio padrão
+
+    ```{r}
+    cat("Desvio padrão:",sd(dados$Age),"\n")
+    ```
+
+3.  os quantis: 25% e 75%
+
+    ```{r}
+    Q1 <- quantile(dados$Age, 0.25)
+    Q1
+    ```
+
+    ```{r}
+    Q3 <- quantile(dados$Age, 0.75)
+    Q3
+    ```
+
+# 9. Utilizando o pacote summarytools (função descr), descreva estatisticamente a sua base de dados.
+
+Aqui utilizei o summarytools para descrever os dados estatisticamente, coloquei as principais métricas e filtrei apenas as colunas numéricas
+
+```{r}
+descr(dados[sapply(dados, is.numeric)], stats = c("mean","sd","min","q1","med","q3","max"))
+```
+
+# 10. Escolha uma variável e crie um histograma. Justifique o número de bins usados. A distribuição dessa variável se aproxima de uma "normal"? Justifique.
+
+A variável escolhida foi “Total Spent”, que representa o valor total gasto por cada cliente. Inicialmente foi gerado um histograma utilizando bins = 1, porém o gráfico ficou difícil de interpretar, pois os valores da variável variam até valores superiores a 600. Dessa forma, foi utilizado bins = 10, dividindo os dados em dez classes, o que permite visualizar melhor a distribuição dos valores e a concentração de observações em diferentes faixas de gasto.
+
+Observando o histograma, nota-se que a distribuição não apresenta um formato aproximadamente simétrico, característico de uma distribuição normal. A distribuição apresenta assimetria à direita, com uma cauda mais longa para valores mais altos de gasto. Isso indica que a maior parte dos clientes apresenta valores de gasto menores ou intermediários, enquanto apenas uma pequena parcela apresenta valores de gasto elevados.
+
+```{r}
+column = dados$Total.Spent
+columnLabel = "Total Gasto"
+bins = 10
+mean_val = mean(column)
+Q2 = quantile(column, 0.50)
+ggplot(data.frame(column), aes(x = column)) +
+    geom_histogram(bins=bins,
+                   aes(y=..density..),
+                   fill = "lightblue",
+                   color = "black") +
+    geom_density(color="darkblue", size=1) +
+    geom_vline(xintercept=mean_val,
+               color="red",
+               linetype="dashed") +
+
+    geom_vline(xintercept=Q2,
+               color="green",
+               linetype="dashed") +
+    labs(title = paste("Histograma -", columnLabel),
+         x = columnLabel,
+         y = "Frequência")
+```
+
+# 11. Calcule a correlação entre todas as variáveis dessa base. Quais são as 3 pares de variáveis mais correlacionadas?
+
+Primeiramente analisei todas as colunas numéricas com boxplot e histogramas, e as categoricas analisei utilizando o gráfico de barras para entender como estão divididos os dados.
+
+Depois fiz a correção entre as colunas e selecionei as 3 mais correlacionadas.
+
+## 1.1 Analisando a coluna Age
+
+```{r}
+plot_analysis(dados$Age, "Idade")
+```
+
+## 1.2 Analisando a coluna Item Purchased
+
+```{r}
+plot_analysis(dados$Items.Purchased, "Itens Comprados")
+```
+
+## 1.3 Analisando a coluna Total Spend
+
+```{r}
+plot_analysis(dados$Total.Spent, "Total Gasto")
+```
+
+## 1.4 Analisando a coluna Discount
+
+```{r}
+plot_analysis(dados$Discount...., "Desconto")
+```
+
+## 1.5 Analisando a coluna Satisfaction Score
+
+```{r}
+analyze_categorical(dados$Satisfaction.Score, "Indice de Satisfação")
+```
+
+## 1.6 Analisando a coluna Warranty Extension
+
+```{r}
+analyze_categorical(dados$Warranty.Extension, "Garantia Estendida")
+```
+
+## 1.7 Analisando a coluna Revenue
+
+```{r}
+plot_analysis(dados$Revenue, "Lucro")
+```
+
+## 1.8 Analisando a coluna Store Rating
+
+```{r}
+analyze_categorical(dados$Store.Rating, "Avaliação da Loja")
+```
+
+## 1.9 Analisando a coluna Loyalty Score
+
+```{r}
+plot_analysis(dados$Loyalty.Score, "Indice de Fidelidade")
+```
+
+## 2.0 Analisando a coluna Membership Status
+
+```{r}
+analyze_categorical(dados$Membership.Status, "Status de Associado")
+```
+
+## 2.1 Analisando a coluna Gender
+
+```{r}
+analyze_categorical(dados$Gender,"Gender")
+```
+
+## 2.2 Analisando a coluna Region
+
+```{r}
+analyze_categorical(dados$Region,"Region")
+```
+
+## 2.3 Analisando a coluna Product Category
+
+```{r}
+analyze_categorical(dados$Product.Category,"Product Category")
+```
+
+## 2.4 Analisando a coluna Payment Method
+
+```{r}
+analyze_categorical(dados$Payment.Method,"Payment Method")
+```
+
+## 2.5 Analisando a coluna Preferred Visit Time
+
+```{r}
+analyze_categorical(dados$Preferred.Visit.Time,"Preferred Visit Time")
+```

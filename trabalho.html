@@ -1,0 +1,4470 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Alan C. Echer">
+
+<title>Trabalho de Estatistica em Data Science - INFNET</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="trabalho_files/libs/clipboard/clipboard.min.js"></script>
+<script src="trabalho_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="trabalho_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="trabalho_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="trabalho_files/libs/quarto-html/popper.min.js"></script>
+<script src="trabalho_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="trabalho_files/libs/quarto-html/anchor.min.js"></script>
+<link href="trabalho_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="trabalho_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="trabalho_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="trabalho_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="trabalho_files/libs/bootstrap/bootstrap-eb0dd55e3076e0a00ea36efaf6acf221.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Trabalho de Estatistica em Data Science - INFNET</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alan C. Echer </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="mostre-através-de-prints-que-você-tem-acesso-a-uma-plataforma-rstudio-instalado-localmente-ou-nuvem." class="level1">
+<h1>1. Mostre através de prints que você tem acesso a uma plataforma RStudio (instalado localmente ou nuvem).</h1>
+<p>Para realizar as análises deste trabalho foi utilizada a plataforma <strong>RStudio</strong>, que é um ambiente de desenvolvimento integrado (IDE) utilizado para programação na linguagem R.</p>
+<p>Neste trabalho foi utilizado o <strong>RStudio instalado localmente</strong>.</p>
+<p><img src="assets/r-studio-local.png" class="img-fluid"></p>
+</section>
+<section id="escolha-uma-base-de-dados-para-realizar-esse-projeto.-essa-base-de-dados-será-utilizada-durante-toda-sua-análise.-essa-base-necessita-ter-4-ou-mais-variáveis-de-interesse.-caso-você-tenha-dificuldade-para-escolher-uma-base-o-professor-da-disciplina-irá-designar-para-você." class="level1">
+<h1>2. Escolha uma base de dados para realizar esse projeto. Essa base de dados será utilizada durante toda sua análise. Essa base necessita ter 4 (ou mais) variáveis de interesse. Caso você tenha dificuldade para escolher uma base, o professor da disciplina irá designar para você.</h1>
+<p>A base de dados foi obtida através do kaggle (<a href="https://www.kaggle.com/datasets/rajagrawal7089/electronic-store-dataset" class="uri">https://www.kaggle.com/datasets/rajagrawal7089/electronic-store-dataset</a>) e contém dados gerados relacionados ao comportamento de consumidores em compras para uma loja de eletronicos, a base possui 5000 linhas e 15 colunas com uma mistura de dados numéricos e categóricos.</p>
+</section>
+<section id="explique-qual-o-motivo-para-a-escolha-dessa-base-e-explique-os-resultados-esperados-através-da-análise." class="level1">
+<h1>3. Explique qual o motivo para a escolha dessa base e explique os resultados esperados através da análise.</h1>
+<p>A base foi escolhida pois possui dados de vendas de uma loja de eletronicos, assim podemos analisar os dados e obter informações sobre seus compradores conhecendo melhor os pontos fortes e fracos de venda, podendo assim tomar decisões estratégicas para ajudar no desenvolvimento do negócio.</p>
+</section>
+<section id="carregue-a-base-para-o-rstudio-e-comprove-o-carregamento-tirando-um-print-da-tela-com-a-base-escolhida-presente-na-área-ambienteenviroment.-detalhe-como-você-realizou-o-carregamento-dos-dados." class="level1">
+<h1>4. Carregue a base para o RStudio e comprove o carregamento tirando um print da tela com a base escolhida presente na área “Ambiente”/Enviroment. Detalhe como você realizou o carregamento dos dados.</h1>
+<p>A base foi carregada através do arquivo csv da pasta dados utilizando a função read.csv conforme a print abaixo:</p>
+<p><img src="assets/carregamento-base.png" class="img-fluid"></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar a base de dados</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"dados/dataset.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizar as primeiras linhas</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#head(dados)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver estrutura da base</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#str(dados)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizar dados</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#View(dados)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver resumo estatístico</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(dados)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="instale-e-carregue-os-pacotes-de-r-necessários-para-sua-análise-mostre-o-código-necessário" class="level1">
+<h1>5. Instale e carregue os pacotes de R necessários para sua análise (mostre o código necessário):</h1>
+<p>Aqui realizei o carregamento dos pacotes R necessário para a análise.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ lubridate 1.9.5     ✔ tibble    3.3.1
+✔ purrr     1.2.1     ✔ tidyr     1.3.2
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'summarytools'
+
+The following object is masked from 'package:tibble':
+
+    view</code></pre>
+</div>
+</div>
+</section>
+<section id="escolha-outros-pacotes-necessários-aponte-sua-necessidade-e-instale-e-carregue-mostrando-o-código-necessário." class="level1">
+<h1>6. Escolha outros pacotes necessários, aponte sua necessidade e instale e carregue (mostrando o código necessário).</h1>
+</section>
+<section id="aplique-uma-função-em-r-que-seja-útil-para-sua-análise-e-mostre." class="level1">
+<h1>7. Aplique uma função em R que seja útil para sua análise e mostre.</h1>
+<p>Foram utilizados as seguintes funções:</p>
+<ol type="1">
+<li><p>min() - Utilizado para encontrar o valor mínimo da coluna</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dados<span class="sc">$</span>Age)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18</code></pre>
+</div>
+</div></li>
+<li><p>quantile() - Utilizado para encontrar os quartis passando por parametro decimal</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(dados<span class="sc">$</span>Age, <span class="fl">0.25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>25% 
+ 31 </code></pre>
+</div>
+</div></li>
+<li><p>IQR() - Utilizado para calcular o IQR valor que representa a diferença entre Q3 e Q1</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"IQR:"</span>,<span class="fu">IQR</span>(dados<span class="sc">$</span>Age),<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IQR: 25 </code></pre>
+</div>
+</div></li>
+<li><p>mean() - Utilizado para encontrar a média da coluna</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Média:"</span>,<span class="fu">mean</span>(dados<span class="sc">$</span>Age),<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Média: 43.5846 </code></pre>
+</div>
+</div></li>
+<li><p>sd() - Utilizado para encontrar o desvio padrão da coluna</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Desvio padrão:"</span>,<span class="fu">sd</span>(dados<span class="sc">$</span>Age),<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Desvio padrão: 14.91909 </code></pre>
+</div>
+</div></li>
+<li><p>ggplot() - Utilizado para imprimir os dados em gráficos</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># O codigo está na Analise final</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></li>
+<li><p>as.factor() - Utilizado para converter os dados numéricos em categóricos</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>Membership.Status <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados<span class="sc">$</span>Membership.Status)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>Warranty.Extension <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados<span class="sc">$</span>Warranty.Extension)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></li>
+<li><p>round() - Utilizado para arredondar os dados numéricos antes de converter para categóricos</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>Store.Rating <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(dados<span class="sc">$</span>Store.Rating))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>Satisfaction.Score <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(dados<span class="sc">$</span>Satisfaction.Score))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></li>
+<li><p>Além das funções das libs acima foi feito também a criação de duas funções para auxiliar na análise de cada coluna</p>
+<ol type="1">
+<li>analyze_categorical: Utilizado para fazer a análise das colunas com valores categóricos, esta função imprime o gráfico de barras com a distribuição e frequencia dos valores da coluna analisada.</li>
+<li>plot_analysis: Utilizado para fazer a análise das colunas com valores numéricos, esta função imprime o gráfico de boxplot e o histograma.</li>
+</ol></li>
+</ol>
+</section>
+<section id="escolha-uma-variável-de-seu-banco-de-dados-e-calcule" class="level1">
+<h1>8. Escolha uma variável de seu banco de dados e calcule:</h1>
+<ol type="1">
+<li><p>a média para todos os eventos:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Média:"</span>,<span class="fu">mean</span>(dados<span class="sc">$</span>Age),<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Média: 43.5846 </code></pre>
+</div>
+</div></li>
+<li><p>o desvio padrão</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Desvio padrão:"</span>,<span class="fu">sd</span>(dados<span class="sc">$</span>Age),<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Desvio padrão: 14.91909 </code></pre>
+</div>
+</div></li>
+<li><p>os quantis: 25% e 75%</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(dados<span class="sc">$</span>Age, <span class="fl">0.25</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Q1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>25% 
+ 31 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>Q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(dados<span class="sc">$</span>Age, <span class="fl">0.75</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>Q3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>75% 
+ 56 </code></pre>
+</div>
+</div></li>
+</ol>
+</section>
+<section id="utilizando-o-pacote-summarytools-função-descr-descreva-estatisticamente-a-sua-base-de-dados." class="level1">
+<h1>9. Utilizando o pacote summarytools (função descr), descreva estatisticamente a sua base de dados.</h1>
+<p>Aqui utilizei o summarytools para descrever os dados estatisticamente, coloquei as principais métricas e filtrei apenas as colunas numéricas</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descr</span>(dados[<span class="fu">sapply</span>(dados, is.numeric)], <span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>,<span class="st">"sd"</span>,<span class="st">"min"</span>,<span class="st">"q1"</span>,<span class="st">"med"</span>,<span class="st">"q3"</span>,<span class="st">"max"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+dados  
+N: 5000  
+
+                  Age   Discount....   Items.Purchased   Loyalty.Score   Revenue   Total.Spent
+------------- ------- -------------- ----------------- --------------- --------- -------------
+         Mean   43.58          26.62              7.54           15.64    718.00        243.72
+      Std.Dev   14.92          13.59              4.01            9.14    776.79        154.95
+          Min   18.00           5.00              1.00            0.00   -201.43         15.11
+           Q1   31.00          15.38              4.00            7.94    164.66        119.12
+       Median   43.00          27.85              7.00           13.97    380.55        221.51
+           Q3   56.00          38.09             11.00           23.52   1047.48        346.21
+          Max   69.00          48.49             14.00           39.24   3523.47        699.61</code></pre>
+</div>
+</div>
+</section>
+<section id="escolha-uma-variável-e-crie-um-histograma.-justifique-o-número-de-bins-usados.-a-distribuição-dessa-variável-se-aproxima-de-uma-normal-justifique." class="level1">
+<h1>10. Escolha uma variável e crie um histograma. Justifique o número de bins usados. A distribuição dessa variável se aproxima de uma “normal”? Justifique.</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>analyze_categorical <span class="ot">&lt;-</span> <span class="cf">function</span>(column, label){</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">table</span>(column))</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(column))<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(column), <span class="fu">aes</span>(<span class="at">x=</span>column)) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">title=</span><span class="fu">paste</span>(<span class="st">"Distribuição de"</span>, label),</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">x=</span>label,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">y=</span><span class="st">"Frequência"</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">|&gt;</span> <span class="fu">print</span>()</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>plot_analysis <span class="ot">&lt;-</span> <span class="cf">function</span>(column, columnLabel){</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  Q0 <span class="ot">&lt;-</span> <span class="fu">min</span>(column)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  Q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(column, <span class="fl">0.25</span>)</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  Q2 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(column, <span class="fl">0.50</span>)</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>  Q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(column, <span class="fl">0.75</span>)</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>  Q4 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(column, <span class="fl">1.00</span>)</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>  IQR_val <span class="ot">&lt;-</span> <span class="fu">IQR</span>(column)</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>  mean_val <span class="ot">&lt;-</span> <span class="fu">mean</span>(column)</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>  sd_val <span class="ot">&lt;-</span> <span class="fu">sd</span>(column)</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># binwidth automático (Freedman-Diaconis)</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(column)</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  binwidth <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> IQR_val <span class="sc">/</span> (n<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>  LI <span class="ot">&lt;-</span> Q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR_val</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>  LS <span class="ot">&lt;-</span> Q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR_val</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Média:"</span>,mean_val,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Mediana:"</span>,Q2,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Desvio padrão:"</span>,sd_val,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Q1:"</span>,Q1,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Q3:"</span>,Q3,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"IQR:"</span>,IQR_val,<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Boxplot</span></span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>  box <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(column), <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> column)) <span class="sc">+</span></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> LI, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> LS, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> Q0, <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> Q4, <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> Q0, <span class="at">label =</span> <span class="st">"(0%)"</span>) <span class="sc">+</span></span>
+<span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> Q1, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Q1 ="</span>, Q1)) <span class="sc">+</span></span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> Q2, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Q2 ="</span>, Q2)) <span class="sc">+</span></span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> Q3, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Q3 ="</span>, Q3)) <span class="sc">+</span></span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> Q4, <span class="at">label =</span> <span class="st">"(100%)"</span>) <span class="sc">+</span></span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-58"><a href="#cb29-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> LI, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Limite Inf:"</span>, <span class="fu">round</span>(LI,<span class="dv">2</span>))) <span class="sc">+</span></span>
+<span id="cb29-59"><a href="#cb29-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> LS, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Limite Sup:"</span>, <span class="fu">round</span>(LS,<span class="dv">2</span>))) <span class="sc">+</span></span>
+<span id="cb29-60"><a href="#cb29-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-61"><a href="#cb29-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Boxplot -"</span>, columnLabel),</span>
+<span id="cb29-62"><a href="#cb29-62" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> columnLabel,</span>
+<span id="cb29-63"><a href="#cb29-63" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">""</span>)</span>
+<span id="cb29-64"><a href="#cb29-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-65"><a href="#cb29-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Histograma</span></span>
+<span id="cb29-66"><a href="#cb29-66" aria-hidden="true" tabindex="-1"></a>  hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(column), <span class="fu">aes</span>(<span class="at">x =</span> column)) <span class="sc">+</span></span>
+<span id="cb29-67"><a href="#cb29-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> binwidth,</span>
+<span id="cb29-68"><a href="#cb29-68" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">aes</span>(<span class="at">y=</span>..density..),</span>
+<span id="cb29-69"><a href="#cb29-69" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb29-70"><a href="#cb29-70" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb29-71"><a href="#cb29-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="at">color=</span><span class="st">"darkblue"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb29-72"><a href="#cb29-72" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>mean_val,</span>
+<span id="cb29-73"><a href="#cb29-73" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span><span class="st">"red"</span>,</span>
+<span id="cb29-74"><a href="#cb29-74" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb29-75"><a href="#cb29-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-76"><a href="#cb29-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>Q2,</span>
+<span id="cb29-77"><a href="#cb29-77" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span><span class="st">"green"</span>,</span>
+<span id="cb29-78"><a href="#cb29-78" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb29-79"><a href="#cb29-79" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Histograma -"</span>, columnLabel),</span>
+<span id="cb29-80"><a href="#cb29-80" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> columnLabel,</span>
+<span id="cb29-81"><a href="#cb29-81" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Frequência"</span>)</span>
+<span id="cb29-82"><a href="#cb29-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-83"><a href="#cb29-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(box)</span>
+<span id="cb29-84"><a href="#cb29-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(hist)</span>
+<span id="cb29-85"><a href="#cb29-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-86"><a href="#cb29-86" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="analisando-a-coluna-age" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-age">1.1 Analisando a coluna Age</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_analysis</span>(dados<span class="sc">$</span>Age, <span class="st">"Idade"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Média: 43.5846 
+Mediana: 43 
+Desvio padrão: 14.91909 
+Q1: 31 
+Q3: 56 
+IQR: 25 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
+ℹ Please use `after_stat(density)` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-item-purchased" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-item-purchased">1.2 Analisando a coluna Item Purchased</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_analysis</span>(dados<span class="sc">$</span>Items.Purchased, <span class="st">"Itens Comprados"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Média: 7.5366 
+Mediana: 7 
+Desvio padrão: 4.014858 
+Q1: 4 
+Q3: 11 
+IQR: 7 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-total-spend" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-total-spend">1.3 Analisando a coluna Total Spend</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_analysis</span>(dados<span class="sc">$</span>Total.Spent, <span class="st">"Total Gasto"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Média: 243.7218 
+Mediana: 221.5142 
+Desvio padrão: 154.949 
+Q1: 119.1301 
+Q3: 346.1734 
+IQR: 227.0433 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-discount" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-discount">1.4 Analisando a coluna Discount</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_analysis</span>(dados<span class="sc">$</span>Discount...., <span class="st">"Desconto"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Média: 26.62233 
+Mediana: 27.84858 
+Desvio padrão: 13.58672 
+Q1: 15.38266 
+Q3: 38.08699 
+IQR: 22.70433 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-satisfaction-score" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-satisfaction-score">1.5 Analisando a coluna Satisfaction Score</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_categorical</span>(dados<span class="sc">$</span>Satisfaction.Score, <span class="st">"Indice de Satisfação"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>column
+   1    2    3    4    5 
+1818  798  754  605 1025 
+column
+    1     2     3     4     5 
+36.36 15.96 15.08 12.10 20.50 
+&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_blank&gt;
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_blank&gt;
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : &lt;ggplot2::element_blank&gt;
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-warranty-extension" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-warranty-extension">1.6 Analisando a coluna Warranty Extension</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_categorical</span>(dados<span class="sc">$</span>Warranty.Extension, <span class="st">"Garantia Estendida"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>column
+   0    1 
+3898 1102 
+column
+    0     1 
+77.96 22.04 
+&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_blank&gt;
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_blank&gt;
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : &lt;ggplot2::element_blank&gt;
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-revenue" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-revenue">1.7 Analisando a coluna Revenue</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_analysis</span>(dados<span class="sc">$</span>Revenue, <span class="st">"Lucro"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Média: 717.9982 
+Mediana: 380.5485 
+Desvio padrão: 776.7891 
+Q1: 164.6976 
+Q3: 1047.426 
+IQR: 882.7289 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-store-rating" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-store-rating">1.8 Analisando a coluna Store Rating</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_categorical</span>(dados<span class="sc">$</span>Store.Rating, <span class="st">"Avaliação da Loja"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>column
+   3    4    5 
+ 127 4782   91 
+column
+    3     4     5 
+ 2.54 95.64  1.82 
+&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_blank&gt;
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_blank&gt;
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : &lt;ggplot2::element_blank&gt;
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-loyalty-score" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-loyalty-score">1.9 Analisando a coluna Loyalty Score</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_analysis</span>(dados<span class="sc">$</span>Loyalty.Score, <span class="st">"Indice de Fidelidade"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Média: 15.63828 
+Mediana: 13.96979 
+Desvio padrão: 9.144742 
+Q1: 7.94479 
+Q3: 23.5216 
+IQR: 15.57681 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-membership-status" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-membership-status">2.0 Analisando a coluna Membership Status</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_categorical</span>(dados<span class="sc">$</span>Membership.Status, <span class="st">"Status de Associado"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>column
+   0    1 
+3458 1542 
+column
+    0     1 
+69.16 30.84 
+&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_blank&gt;
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_blank&gt;
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : &lt;ggplot2::element_blank&gt;
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-gender" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-gender">2.1 Analisando a coluna Gender</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_categorical</span>(dados<span class="sc">$</span>Gender,<span class="st">"Gender"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>column
+Female   Male  Other 
+  2372   2447    181 
+column
+Female   Male  Other 
+ 47.44  48.94   3.62 
+&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_blank&gt;
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_blank&gt;
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : &lt;ggplot2::element_blank&gt;
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-region" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-region">2.2 Analisando a coluna Region</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_categorical</span>(dados<span class="sc">$</span>Region,<span class="st">"Region"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>column
+ East North South  West 
+ 1208  1201  1310  1281 
+column
+ East North South  West 
+24.16 24.02 26.20 25.62 
+&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_blank&gt;
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_blank&gt;
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : &lt;ggplot2::element_blank&gt;
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-product-category" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-product-category">2.3 Analisando a coluna Product Category</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_categorical</span>(dados<span class="sc">$</span>Product.Category,<span class="st">"Product Category"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>column
+Accessories      Laptop      Mobile      Tablet  Television 
+       1015        1013         984         997         991 
+column
+Accessories      Laptop      Mobile      Tablet  Television 
+      20.30       20.26       19.68       19.94       19.82 
+&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_blank&gt;
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_blank&gt;
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : &lt;ggplot2::element_blank&gt;
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-payment-method" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-payment-method">2.4 Analisando a coluna Payment Method</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_categorical</span>(dados<span class="sc">$</span>Payment.Method,<span class="st">"Payment Method"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>column
+       Cash Credit Card  Debit Card Net Banking         UPI 
+       1016        1011         980        1039         954 
+column
+       Cash Credit Card  Debit Card Net Banking         UPI 
+      20.32       20.22       19.60       20.78       19.08 
+&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_blank&gt;
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_blank&gt;
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : &lt;ggplot2::element_blank&gt;
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analisando-a-coluna-preferred-visit-time" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-a-coluna-preferred-visit-time">2.5 Analisando a coluna Preferred Visit Time</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_categorical</span>(dados<span class="sc">$</span>Preferred.Visit.Time,<span class="st">"Preferred Visit Time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>column
+Afternoon   Evening   Morning 
+     1661      1662      1677 
+column
+Afternoon   Evening   Morning 
+    33.22     33.24     33.54 
+&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 4.95 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 4.95 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 4.95 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 4.95
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_blank&gt;
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_blank&gt;
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : &lt;ggplot2::element_blank&gt;
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="trabalho_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
