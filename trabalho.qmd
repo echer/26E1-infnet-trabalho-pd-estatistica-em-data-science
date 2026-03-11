@@ -1,8 +1,15 @@
 ---
 title: "Trabalho de Estatistica em Data Science - INFNET"
-format: html
+subtitle: "Estatística para Ciência de dados"
 author: "Alan C. Echer"
-editor: visual
+format:
+  html: 
+    theme: cosmo
+    toc: true
+    echo: true
+    code-copy: true
+editor_options:
+  chunk_output_type: console
 ---
 
 # 1. Mostre através de prints que você tem acesso a uma plataforma RStudio (instalado localmente ou nuvem).
@@ -15,7 +22,7 @@ Neste trabalho foi utilizado o **RStudio instalado localmente**.
 
 # 2. Escolha uma base de dados para realizar esse projeto. Essa base de dados será utilizada durante toda sua análise. Essa base necessita ter 4 (ou mais) variáveis de interesse. Caso você tenha dificuldade para escolher uma base, o professor da disciplina irá designar para você.
 
-A base de dados foi obtida através do kaggle (<https://www.kaggle.com/datasets/rajagrawal7089/electronic-store-dataset>) e contém dados gerados relacionados ao comportamento de consumidores em compras para uma loja de eletronicos, a base possui 5000 linhas e 15 colunas com uma mistura de dados numéricos e categóricos.
+A base de dados foi obtida através da planilha disponibilizada pela professora com o link para o kaggle (<https://www.kaggle.com/datasets/rajagrawal7089/electronic-store-dataset>) e contém dados gerados relacionados ao comportamento de consumidores em compras para uma loja de eletronicos, a base possui 5000 linhas e 15 colunas com uma mistura de dados numéricos e categóricos.
 
 # 3. Explique qual o motivo para a escolha dessa base e explique os resultados esperados através da análise.
 
@@ -30,6 +37,9 @@ A base foi carregada através do arquivo csv da pasta dados utilizando a funçã
 ```{r}
 # Carregar a base de dados
 dados <- read.csv("dados/dataset.csv")
+
+library(dplyr)
+glimpse(dados)
 ```
 
 ```{r}
@@ -47,6 +57,12 @@ library(summarytools)
 ```
 
 # 6. Escolha outros pacotes necessários, aponte sua necessidade e instale e carregue (mostrando o código necessário).
+
+```{r}
+library(gtsummary)
+library(gt)
+library(corrplot)
+```
 
 # 7. Aplique uma função em R que seja útil para sua análise e mostre.
 
@@ -109,12 +125,13 @@ Foram utilizados as seguintes funções:
     1.  analyze_categorical: Utilizado para fazer a análise das colunas com valores categóricos, esta função imprime o gráfico de barras com a distribuição e frequencia dos valores da coluna analisada.
     2.  plot_analysis: Utilizado para fazer a análise das colunas com valores numéricos, esta função imprime o gráfico de boxplot e o histograma.
 
+    ```{r}
+    dados |>
+      tbl_summary()
+    ```
+
 ```{r}
 analyze_categorical <- function(column, label){
-
-  print(table(column))
-  print(prop.table(table(column))*100)
-
   ggplot(data.frame(column), aes(x=column)) +
     geom_bar(fill="lightblue") +
     labs(
@@ -122,8 +139,7 @@ analyze_categorical <- function(column, label){
       x=label,
       y="Frequência"
     ) +
-    theme_minimal() |> print()
-
+    theme_minimal()
 }
 
 plot_analysis <- function(column, columnLabel){
@@ -191,38 +207,36 @@ plot_analysis <- function(column, columnLabel){
     labs(title = paste("Histograma -", columnLabel),
          x = columnLabel,
          y = "Frequência")
+  
+  qqplot <- ggplot(dados, aes(sample = column)) +
+    stat_qq() +
+    stat_qq_line(color = "red") +
+    labs(title = paste("QQPlot -", columnLabel))
 
   print(box)
   print(hist)
+  print(qqplot)
 
 }
 ```
 
 # 8. Escolha uma variável de seu banco de dados e calcule:
 
-1.  a média para todos os eventos:
+```{r}
+dados |>
+  summarise(
+    min = min(Age, na.rm = TRUE),
+    q1 = quantile(Age, probs = 0.25, na.rm = TRUE),
+    mediana = median(Age, na.rm = TRUE),
+    media = mean(Age, na.rm = TRUE),
+    q3 = quantile(Age, 0.75, na.rm = TRUE),
+    max = max(Age, na.rm = TRUE),
+    desvio_padrao = sd(Age, na.rm = TRUE)
+  ) |>
+  gt()
+```
 
-    ```{r}
-    cat("Média:",mean(dados$Age),"\n")
-    ```
-
-2.  o desvio padrão
-
-    ```{r}
-    cat("Desvio padrão:",sd(dados$Age),"\n")
-    ```
-
-3.  os quantis: 25% e 75%
-
-    ```{r}
-    Q1 <- quantile(dados$Age, 0.25)
-    Q1
-    ```
-
-    ```{r}
-    Q3 <- quantile(dados$Age, 0.75)
-    Q3
-    ```
+Foi realizado também a analise de todas as metricas acima em todos as colunas numéricas da base de dados no item 11 do trabalho.
 
 # 9. Utilizando o pacote summarytools (função descr), descreva estatisticamente a sua base de dados.
 
@@ -237,6 +251,8 @@ descr(dados[sapply(dados, is.numeric)], stats = c("mean","sd","min","q1","med","
 A variável escolhida foi “Total Spent”, que representa o valor total gasto por cada cliente. Inicialmente foi gerado um histograma utilizando bins = 1, porém o gráfico ficou difícil de interpretar, pois os valores da variável variam até valores superiores a 600. Dessa forma, foi utilizado bins = 10, dividindo os dados em dez classes, o que permite visualizar melhor a distribuição dos valores e a concentração de observações em diferentes faixas de gasto.
 
 Observando o histograma, nota-se que a distribuição não apresenta um formato aproximadamente simétrico, característico de uma distribuição normal. A distribuição apresenta assimetria à direita, com uma cauda mais longa para valores mais altos de gasto. Isso indica que a maior parte dos clientes apresenta valores de gasto menores ou intermediários, enquanto apenas uma pequena parcela apresenta valores de gasto elevados.
+
+O histograma também foi aplicado para todas as colunas numéricas da base de dados no item 11.
 
 ```{r}
 column = dados$Total.Spent
@@ -260,13 +276,19 @@ ggplot(data.frame(column), aes(x = column)) +
     labs(title = paste("Histograma -", columnLabel),
          x = columnLabel,
          y = "Frequência")
+
+ggplot(dados, aes(sample = Total.Spent)) +
+  stat_qq() +
+  stat_qq_line(color = "red") +
+  labs(title = "QQPlot - Total Spent")
+
 ```
 
 # 11. Calcule a correlação entre todas as variáveis dessa base. Quais são as 3 pares de variáveis mais correlacionadas?
 
 Primeiramente analisei todas as colunas numéricas com boxplot e histogramas, e as categoricas analisei utilizando o gráfico de barras para entender como estão divididos os dados.
 
-Depois fiz a correção entre as colunas e selecionei as 3 mais correlacionadas.
+Depois fiz a correção entre as colunas numéricas e selecionei as 3 mais correlacionadas.
 
 ## 1.1 Analisando a coluna Age
 
@@ -357,3 +379,34 @@ analyze_categorical(dados$Payment.Method,"Payment Method")
 ```{r}
 analyze_categorical(dados$Preferred.Visit.Time,"Preferred Visit Time")
 ```
+
+## 2.6 Analisando correlações
+
+```{r}
+corr_matrix <- cor(dados[sapply(dados, is.numeric)], use = "complete.obs")
+
+corrplot(corr_matrix, 
+  method = "color",
+  type = "upper",
+  tl.srt = 45,
+  addCoef.col = "gray",
+  tl.col = "black"
+)
+```
+
+![](assets/correlacao.png)
+
+Foram selecionadas algumas correlações entre variáveis da base de dados relacionadas ao valor total gasto (**Total Spent**), pois elas apresentam forte relação com essa variável.
+
+**Discount → Total.Spent (-0.98):**
+A primeira correlação observada foi entre o desconto e o total gasto. Trata-se de uma correlação negativa muito forte, indicando que, à medida que o total gasto aumenta, o desconto tende a diminuir. De forma inversa, quando o total gasto diminui, o desconto tende a aumentar.
+
+**Revenue → Total.Spent (0.88):**
+A segunda correlação observada foi entre a receita e o total gasto. Trata-se de uma correlação positiva forte, indicando que, à medida que o total gasto aumenta, a receita também tende a aumentar. Da mesma forma, quando o total gasto diminui, a receita tende a diminuir.
+
+**Items Purchased → Total.Spent (0.84):**
+A terceira correlação observada foi entre o número de itens comprados e o total gasto. Trata-se de uma correlação positiva forte, indicando que clientes que compram mais itens tendem a apresentar maior valor total gasto. Da mesma forma, quando o número de itens comprados diminui, o total gasto também tende a diminuir.
+
+# 12. Crie um scatterplot entre duas variáveis das resposta anterior. Qual a relação da imagem com a correlação entre as variáveis.
+
+# 13. Crie um gráfico linha de duas das variáveis. Acrescente uma legenda e rótulos nos eixos.
