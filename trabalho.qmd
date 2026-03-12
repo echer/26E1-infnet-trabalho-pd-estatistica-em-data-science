@@ -2,17 +2,24 @@
 title: "Trabalho de Estatistica em Data Science - INFNET"
 subtitle: "Estatística para Ciência de dados"
 author: "Alan C. Echer"
+date: "`r Sys.Date()`"
 format:
   html: 
-    theme: cosmo
+    theme: darkly
     toc: true
+    number-sections: true
+    fig-cap-location: bottom
     echo: true
     code-copy: true
+execute:
+  echo: true
+  warning: false
+  message: false
 editor_options:
   chunk_output_type: console
 ---
 
-# 1. Mostre através de prints que você tem acesso a uma plataforma RStudio (instalado localmente ou nuvem).
+# Mostre através de prints que você tem acesso a uma plataforma RStudio (instalado localmente ou nuvem).
 
 Para realizar as análises deste trabalho foi utilizada a plataforma **RStudio**, que é um ambiente de desenvolvimento integrado (IDE) utilizado para programação na linguagem R.
 
@@ -20,15 +27,15 @@ Neste trabalho foi utilizado o **RStudio instalado localmente**.
 
 ![](assets/r-studio-local.png)
 
-# 2. Escolha uma base de dados para realizar esse projeto. Essa base de dados será utilizada durante toda sua análise. Essa base necessita ter 4 (ou mais) variáveis de interesse. Caso você tenha dificuldade para escolher uma base, o professor da disciplina irá designar para você.
+# Escolha uma base de dados para realizar esse projeto. Essa base de dados será utilizada durante toda sua análise. Essa base necessita ter 4 (ou mais) variáveis de interesse. Caso você tenha dificuldade para escolher uma base, o professor da disciplina irá designar para você.
 
 A base de dados foi obtida através da planilha disponibilizada pela professora com o link para o kaggle (<https://www.kaggle.com/datasets/rajagrawal7089/electronic-store-dataset>) e contém dados gerados relacionados ao comportamento de consumidores em compras para uma loja de eletronicos, a base possui 5000 linhas e 15 colunas com uma mistura de dados numéricos e categóricos.
 
-# 3. Explique qual o motivo para a escolha dessa base e explique os resultados esperados através da análise.
+# Explique qual o motivo para a escolha dessa base e explique os resultados esperados através da análise.
 
 A base foi escolhida pois possui dados de vendas de uma loja de eletronicos, assim podemos analisar os dados e obter informações sobre seus compradores conhecendo melhor os pontos fortes e fracos de venda, podendo assim tomar decisões estratégicas para ajudar no desenvolvimento do negócio.
 
-# 4. Carregue a base para o RStudio e comprove o carregamento tirando um print da tela com a base escolhida presente na área "Ambiente"/Enviroment. Detalhe como você realizou o carregamento dos dados.
+# Carregue a base para o RStudio e comprove o carregamento tirando um print da tela com a base escolhida presente na área "Ambiente"/Enviroment. Detalhe como você realizou o carregamento dos dados.
 
 A base foi carregada através do arquivo csv da pasta dados utilizando a função read.csv conforme a print abaixo:
 
@@ -46,7 +53,7 @@ glimpse(dados)
 any(is.na(dados))
 ```
 
-# 5. Instale e carregue os pacotes de R necessários para sua análise (mostre o código necessário):
+# Instale e carregue os pacotes de R necessários para sua análise (mostre o código necessário):
 
 Aqui realizei o carregamento dos pacotes R necessário para a análise.
 
@@ -56,7 +63,7 @@ library(tidyverse)
 library(summarytools)
 ```
 
-# 6. Escolha outros pacotes necessários, aponte sua necessidade e instale e carregue (mostrando o código necessário).
+# Escolha outros pacotes necessários, aponte sua necessidade e instale e carregue (mostrando o código necessário).
 
 ```{r}
 library(gtsummary)
@@ -64,45 +71,46 @@ library(gt)
 library(corrplot)
 ```
 
-# 7. Aplique uma função em R que seja útil para sua análise e mostre.
+# Aplique uma função em R que seja útil para sua análise e mostre.
+
+```{r}
+dados |>
+  tbl_summary()
+```
 
 Foram utilizados as seguintes funções:
 
 1.  min() - Utilizado para encontrar o valor mínimo da coluna
 
     ```{r}
-    min(dados$Age)
+    min(dados$Age, na.rm = TRUE)
     ```
 
 2.  quantile() - Utilizado para encontrar os quartis passando por parametro decimal
 
     ```{r}
-    quantile(dados$Age, 0.25)
+    quantile(dados$Age, 0.25, na.rm = TRUE)
     ```
 
 3.  IQR() - Utilizado para calcular o IQR valor que representa a diferença entre Q3 e Q1
 
     ```{r}
-    cat("IQR:",IQR(dados$Age),"\n")
+    cat("IQR:",IQR(dados$Age, na.rm = TRUE),"\n")
     ```
 
 4.  mean() - Utilizado para encontrar a média da coluna
 
     ```{r}
-    cat("Média:",mean(dados$Age),"\n")
+    cat("Média:",mean(dados$Age, na.rm = TRUE),"\n")
     ```
 
 5.  sd() - Utilizado para encontrar o desvio padrão da coluna
 
     ```{r}
-    cat("Desvio padrão:",sd(dados$Age),"\n")
+    cat("Desvio padrão:",sd(dados$Age, na.rm = TRUE),"\n")
     ```
 
 6.  ggplot() - Utilizado para imprimir os dados em gráficos
-
-    ```{r}
-    # O codigo está na Analise final
-    ```
 
 7.  as.factor() - Utilizado para converter os dados numéricos em categóricos
 
@@ -118,17 +126,10 @@ Foram utilizados as seguintes funções:
     dados$Satisfaction.Score <- as.factor(round(dados$Satisfaction.Score))
     ```
 
-9.  Não foi utilizado na.omit() ou na.rm = TRUE pois não foi encontrado dados nullos na base
-
-10. Além das funções das libs acima foi feito também a criação de duas funções para auxiliar na análise de cada coluna
+9.  Além das funções das libs acima foi feito também a criação de duas funções para auxiliar na análise de cada coluna
 
     1.  analyze_categorical: Utilizado para fazer a análise das colunas com valores categóricos, esta função imprime o gráfico de barras com a distribuição e frequencia dos valores da coluna analisada.
     2.  plot_analysis: Utilizado para fazer a análise das colunas com valores numéricos, esta função imprime o gráfico de boxplot e o histograma.
-
-    ```{r}
-    dados |>
-      tbl_summary()
-    ```
 
 ```{r}
 analyze_categorical <- function(column, label){
@@ -144,16 +145,16 @@ analyze_categorical <- function(column, label){
 
 plot_analysis <- function(column, columnLabel){
 
-  Q0 <- min(column)
-  Q1 <- as.numeric(quantile(column, 0.25))
-  Q2 <- as.numeric(quantile(column, 0.50))
-  Q3 <- as.numeric(quantile(column, 0.75))
-  Q4 <- as.numeric(quantile(column, 1.00))
+  Q0 <- min(column, na.rm = TRUE)
+  Q1 <- as.numeric(quantile(column, 0.25, na.rm = TRUE))
+  Q2 <- as.numeric(quantile(column, 0.50, na.rm = TRUE))
+  Q3 <- as.numeric(quantile(column, 0.75, na.rm = TRUE))
+  Q4 <- as.numeric(quantile(column, 1.00, na.rm = TRUE))
 
-  IQR_val <- IQR(column)
+  IQR_val <- IQR(column, na.rm = TRUE)
   
-  mean_val <- mean(column)
-  sd_val <- sd(column)
+  mean_val <- mean(column, na.rm = TRUE)
+  sd_val <- sd(column, na.rm = TRUE)
   
   # binwidth automático (Freedman-Diaconis)
   n <- length(column)
@@ -220,7 +221,7 @@ plot_analysis <- function(column, columnLabel){
 }
 ```
 
-# 8. Escolha uma variável de seu banco de dados e calcule:
+# Escolha uma variável de seu banco de dados e calcule:
 
 ```{r}
 dados |>
@@ -238,7 +239,7 @@ dados |>
 
 Foi realizado também a analise de todas as metricas acima em todos as colunas numéricas da base de dados no item 11 do trabalho.
 
-# 9. Utilizando o pacote summarytools (função descr), descreva estatisticamente a sua base de dados.
+# Utilizando o pacote summarytools (função descr), descreva estatisticamente a sua base de dados.
 
 Aqui utilizei o summarytools para descrever os dados estatisticamente, coloquei as principais métricas e filtrei apenas as colunas numéricas
 
@@ -246,7 +247,7 @@ Aqui utilizei o summarytools para descrever os dados estatisticamente, coloquei 
 descr(dados[sapply(dados, is.numeric)], stats = c("mean","sd","min","q1","med","q3","max"))
 ```
 
-# 10. Escolha uma variável e crie um histograma. Justifique o número de bins usados. A distribuição dessa variável se aproxima de uma "normal"? Justifique.
+# Escolha uma variável e crie um histograma. Justifique o número de bins usados. A distribuição dessa variável se aproxima de uma "normal"? Justifique.
 
 A variável escolhida foi “Total Spent”, que representa o valor total gasto por cada cliente. Inicialmente foi gerado um histograma utilizando bins = 1, porém o gráfico ficou difícil de interpretar, pois os valores da variável variam até valores superiores a 600. Dessa forma, foi utilizado bins = 10, dividindo os dados em dez classes, o que permite visualizar melhor a distribuição dos valores e a concentração de observações em diferentes faixas de gasto.
 
@@ -258,8 +259,8 @@ O histograma também foi aplicado para todas as colunas numéricas da base de da
 column = dados$Total.Spent
 columnLabel = "Total Gasto"
 bins = 10
-mean_val = mean(column)
-Q2 = quantile(column, 0.50)
+mean_val = mean(column, na.rm = TRUE)
+Q2 = quantile(column, 0.50, na.rm = TRUE)
 ggplot(data.frame(column), aes(x = column)) +
     geom_histogram(bins=bins,
                    aes(y=..density..),
@@ -284,7 +285,7 @@ ggplot(dados, aes(sample = Total.Spent)) +
 
 ```
 
-# 11. Calcule a correlação entre todas as variáveis dessa base. Quais são as 3 pares de variáveis mais correlacionadas?
+# Calcule a correlação entre todas as variáveis dessa base. Quais são as 3 pares de variáveis mais correlacionadas?
 
 Primeiramente analisei todas as colunas numéricas com boxplot e histogramas, e as categoricas analisei utilizando o gráfico de barras para entender como estão divididos os dados.
 
@@ -398,15 +399,33 @@ corrplot(corr_matrix,
 
 Foram selecionadas algumas correlações entre variáveis da base de dados relacionadas ao valor total gasto (**Total Spent**), pois elas apresentam forte relação com essa variável.
 
-**Discount → Total.Spent (-0.98):**
-A primeira correlação observada foi entre o desconto e o total gasto. Trata-se de uma correlação negativa muito forte, indicando que, à medida que o total gasto aumenta, o desconto tende a diminuir. De forma inversa, quando o total gasto diminui, o desconto tende a aumentar.
+**Discount - Total.Spent (-0.98):** A primeira correlação observada foi entre o desconto e o total gasto. Trata-se de uma correlação negativa muito forte, indicando que, à medida que o total gasto aumenta, o desconto tende a diminuir. De forma inversa, quando o total gasto diminui, o desconto tende a aumentar.
 
-**Revenue → Total.Spent (0.88):**
-A segunda correlação observada foi entre a receita e o total gasto. Trata-se de uma correlação positiva forte, indicando que, à medida que o total gasto aumenta, a receita também tende a aumentar. Da mesma forma, quando o total gasto diminui, a receita tende a diminuir.
+**Revenue - Total.Spent (0.88):** A segunda correlação observada foi entre a receita e o total gasto. Trata-se de uma correlação positiva forte, indicando que, à medida que o total gasto aumenta, a receita também tende a aumentar. Da mesma forma, quando o total gasto diminui, a receita tende a diminuir.
 
-**Items Purchased → Total.Spent (0.84):**
-A terceira correlação observada foi entre o número de itens comprados e o total gasto. Trata-se de uma correlação positiva forte, indicando que clientes que compram mais itens tendem a apresentar maior valor total gasto. Da mesma forma, quando o número de itens comprados diminui, o total gasto também tende a diminuir.
+**Items Purchased - Total.Spent (0.84):** A terceira correlação observada foi entre o número de itens comprados e o total gasto. Trata-se de uma correlação positiva forte, indicando que clientes que compram mais itens tendem a apresentar maior valor total gasto. Da mesma forma, quando o número de itens comprados diminui, o total gasto também tende a diminuir.
 
-# 12. Crie um scatterplot entre duas variáveis das resposta anterior. Qual a relação da imagem com a correlação entre as variáveis.
+# Crie um scatterplot entre duas variáveis das resposta anterior. Qual a relação da imagem com a correlação entre as variáveis.
 
-# 13. Crie um gráfico linha de duas das variáveis. Acrescente uma legenda e rótulos nos eixos.
+Podemos ver visualmente no scatterplot a relação entre as duas variáveis numéricas Items.Purchased e Total.Spent, temos uma correlação forte positiva formando um padrão ascendente ou seja quando uma variavel aumenta a outra também aumenta.
+
+```{r}
+ggplot(dados, aes(x = Items.Purchased, y = Total.Spent)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "red") +
+  labs(
+    title = "Scatterplot entre Items Purchased e Total Spent",
+    x = "Items Purchased",
+    y = "Total Spent"
+  )
+```
+
+# Crie um gráfico linha de duas das variáveis. Acrescente uma legenda e rótulos nos eixos.
+
+```{r}
+ggplot(dados, aes(x=Items.Purchased, y=Total.Spent)) +
+  geom_line( color="#69b3a2", size=2, alpha=0.9, linetype=2) +
+  ggtitle("Evolução de Itens Comprados x Total Gasto")
+```
+
+Aqui podemos ver como de alguma forma pelo gráfico de linha há uma relação também crescente de Total Spent com Items Purchased, mesmo havendo alguns pontos de variação, no contexto mais amplo podemos perceber a crescente positiva.
