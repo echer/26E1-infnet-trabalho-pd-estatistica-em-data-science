@@ -19,6 +19,10 @@ editor_options:
   chunk_output_type: console
 ---
 
+Github: <https://github.com/echer/26E1-infnet-trabalho-pd-estatistica-em-data-science.git>
+
+RPUBS: <https://rpubs.com/alanecher/infnet-data-science-em-ia-trabalho-estatistica-em-data-science>
+
 # Mostre através de prints que você tem acesso a uma plataforma RStudio (instalado localmente ou nuvem).
 
 Para realizar as análises deste trabalho foi utilizada a plataforma **RStudio**, que é um ambiente de desenvolvimento integrado (IDE) utilizado para programação na linguagem R.
