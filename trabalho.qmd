@@ -291,97 +291,97 @@ Primeiramente analisei todas as colunas numéricas com boxplot e histogramas, e 
 
 Depois fiz a correção entre as colunas numéricas e selecionei as 3 mais correlacionadas.
 
-## 1.1 Analisando a coluna Age
+## Analisando a coluna Age
 
 ```{r}
 plot_analysis(dados$Age, "Idade")
 ```
 
-## 1.2 Analisando a coluna Item Purchased
+## Analisando a coluna Item Purchased
 
 ```{r}
 plot_analysis(dados$Items.Purchased, "Itens Comprados")
 ```
 
-## 1.3 Analisando a coluna Total Spend
+## Analisando a coluna Total Spend
 
 ```{r}
 plot_analysis(dados$Total.Spent, "Total Gasto")
 ```
 
-## 1.4 Analisando a coluna Discount
+## Analisando a coluna Discount
 
 ```{r}
 plot_analysis(dados$Discount...., "Desconto")
 ```
 
-## 1.5 Analisando a coluna Satisfaction Score
+## Analisando a coluna Satisfaction Score
 
 ```{r}
 analyze_categorical(dados$Satisfaction.Score, "Indice de Satisfação")
 ```
 
-## 1.6 Analisando a coluna Warranty Extension
+## Analisando a coluna Warranty Extension
 
 ```{r}
 analyze_categorical(dados$Warranty.Extension, "Garantia Estendida")
 ```
 
-## 1.7 Analisando a coluna Revenue
+## Analisando a coluna Revenue
 
 ```{r}
 plot_analysis(dados$Revenue, "Lucro")
 ```
 
-## 1.8 Analisando a coluna Store Rating
+## Analisando a coluna Store Rating
 
 ```{r}
 analyze_categorical(dados$Store.Rating, "Avaliação da Loja")
 ```
 
-## 1.9 Analisando a coluna Loyalty Score
+## Analisando a coluna Loyalty Score
 
 ```{r}
 plot_analysis(dados$Loyalty.Score, "Indice de Fidelidade")
 ```
 
-## 2.0 Analisando a coluna Membership Status
+## Analisando a coluna Membership Status
 
 ```{r}
 analyze_categorical(dados$Membership.Status, "Status de Associado")
 ```
 
-## 2.1 Analisando a coluna Gender
+## Analisando a coluna Gender
 
 ```{r}
 analyze_categorical(dados$Gender,"Gender")
 ```
 
-## 2.2 Analisando a coluna Region
+## Analisando a coluna Region
 
 ```{r}
 analyze_categorical(dados$Region,"Region")
 ```
 
-## 2.3 Analisando a coluna Product Category
+## Analisando a coluna Product Category
 
 ```{r}
 analyze_categorical(dados$Product.Category,"Product Category")
 ```
 
-## 2.4 Analisando a coluna Payment Method
+## Analisando a coluna Payment Method
 
 ```{r}
 analyze_categorical(dados$Payment.Method,"Payment Method")
 ```
 
-## 2.5 Analisando a coluna Preferred Visit Time
+## Analisando a coluna Preferred Visit Time
 
 ```{r}
 analyze_categorical(dados$Preferred.Visit.Time,"Preferred Visit Time")
 ```
 
-## 2.6 Analisando correlações
+## Analisando correlações
 
 ```{r}
 corr_matrix <- cor(dados[sapply(dados, is.numeric)], use = "complete.obs")
